@@ -41,7 +41,8 @@ token = util.prompt_for_user_token(username, scope)
 sp_oauth = oauth2.SpotifyOAuth(key['ClientID'], key['ClientSecret'], 'http://localhost/', \
 scope=scope, cache_path=".cache-" + username )
 
-for t in list(range(40)):
+# Run loop 71 times (1 day capture -20 min)
+for t in list(range(71)):
 
     if token:
 
@@ -50,15 +51,19 @@ for t in list(range(40)):
         token = token_info['access_token']
         # print(token_info['access_token'])
 
-        # Read the last endtime from tracker
-        with open('cursor.txt','r') as f:
-            start = f.read()
-        # print(start)
-
         sp = spotipy.Spotify(auth=token)
 
-        # Warning: Submitting 50+ will NOT return a 'cursors' object
-        results = sp.current_user_recently_played(limit=49, after=start)
+        # Read the last endtime from tracker
+        try:
+            with open('cursor.txt','r') as f:
+                start = f.read()
+            # Warning: Submitting 50+ will NOT return a 'cursors' object
+            results = sp.current_user_recently_played(limit=49, after=start)
+        except FileNotFoundError:
+            results = sp.current_user_recently_played(limit=49)
+        # print(start)
+
+
 
         # Catch for no new songs in timewindow
         if len(results['items']) == 0:
