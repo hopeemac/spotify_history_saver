@@ -61,6 +61,7 @@ for t in list(range(71)):
             results = sp.current_user_recently_played(limit=49, after=start)
         except FileNotFoundError:
             results = sp.current_user_recently_played(limit=49)
+            start = 0
         # print(start)
 
 
