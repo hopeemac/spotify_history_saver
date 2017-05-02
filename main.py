@@ -92,12 +92,15 @@ for t in list(range(71)):
             # print(results['cursors'])
     else:
         print("Can't get token for", username)
+
+    # Write time/date details to log file
+    with open('log.txt','a') as f:
+        f.write(str(datetime.datetime.now())+"\t"+str(len(results['items']))+"\n")
+    
     print(str(t*20)+'minutes running')
     time.sleep(20*60)
 
-# Write time/date details to log file
-with open('log.txt','a') as f:
-    f.write(str(datetime.datetime.now())+"\t"+str(len(results['items']))+"\n")
+
 
 # Next steps - pagnation, and storing of data
 # -- Write to new file? Append to old (risky if issue, though not deleting...)
