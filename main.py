@@ -46,7 +46,7 @@ for t in list(range(71)):
 
     if token:
 
-        print(token)
+        # print(token)
         token_info = sp_oauth.get_cached_token()
         token = token_info['access_token']
         # print(token_info['access_token'])
@@ -58,10 +58,19 @@ for t in list(range(71)):
             with open('cursor.txt','r') as f:
                 start = f.read()
             # Warning: Submitting 50+ will NOT return a 'cursors' object
-            results = sp.current_user_recently_played(limit=49, after=start)
+            try:
+                results = sp.current_user_recently_played(limit=49, after=start)
+            except ConnectionError as e:
+                print('Caught ConnectionError')
+                time.sleep(2*60)
         except FileNotFoundError:
-            results = sp.current_user_recently_played(limit=49)
             start = 0
+            try:
+                results = sp.current_user_recently_played(limit=49)
+            except ConnectionError as e:
+                print('Caught ConnectionError')
+                time.sleep(2*60)
+
         # print(start)
 
 
@@ -96,7 +105,7 @@ for t in list(range(71)):
     # Write time/date details to log file
     with open('log.txt','a') as f:
         f.write(str(datetime.datetime.now())+"\t"+str(len(results['items']))+"\n")
-    
+
     print(str(t*20)+'minutes running')
     time.sleep(20*60)
 
