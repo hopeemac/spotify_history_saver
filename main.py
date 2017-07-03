@@ -44,6 +44,7 @@ scope=scope, cache_path=".cache-" + username )
 # Loop runs until 11:35pm of the day the script was started
 start_time = datetime.datetime.now()
 stop_time = start_time.replace(hour=23,minute=35)
+t=0
 while datetime.datetime.now() < stop_time:
 
     if token:
@@ -109,8 +110,8 @@ while datetime.datetime.now() < stop_time:
         f.write(str(datetime.datetime.now())+"\t"+str(len(results['items']))+"\n")
 
     print(str(t*20)+'minutes running')
+    t+=1
     time.sleep(20*60)
-
 
 
 # Next steps - pagnation, and storing of data
