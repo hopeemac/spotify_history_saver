@@ -43,7 +43,7 @@ scope=scope, cache_path=".cache-" + username )
 
 # Loop runs until 11:35pm of the day the script was started
 start_time = datetime.datetime.now()
-stop_time = start_time.replace(hours=23,minutes=35)
+stop_time = start_time.replace(hour=23,minute=35)
 while datetime.datetime.now() < stop_time:
 
     if token:
