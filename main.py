@@ -41,8 +41,10 @@ token = util.prompt_for_user_token(username, scope)
 sp_oauth = oauth2.SpotifyOAuth(key['ClientID'], key['ClientSecret'], 'http://localhost/', \
 scope=scope, cache_path=".cache-" + username )
 
-# Run loop 71 times (1 day capture -20 min)
-for t in list(range(71)):
+# Loop runs until 11:35pm of the day the script was started
+start_time = datetime.datetime.now()
+stop_time = start_time.replace(hours=23,minutes=35)
+while datetime.datetime.now() < stop_time:
 
     if token:
 
