@@ -87,3 +87,10 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Custom
+auth.txt
+history/*
+cursor.txt
+log.txt
+.idea/
